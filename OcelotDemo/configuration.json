@@ -1,0 +1,73 @@
+﻿{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/book",
+      "UpstreamPathTemplate": "/api/getbook",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8001
+        }
+      ],
+      "Key": "book",
+      "RateLimitOptions": {
+        "ClientWhitelist": [],
+        "EnableRateLimiting": true,
+        "Period": "1s",
+        "PeriodTimespan": 15,
+        "Limit": 1
+      }
+    },
+    {
+      "DownstreamPathTemplate": "/api/book/{pnr}",
+      "UpstreamPathTemplate": "/api/getbook/{pnr}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8001
+        }
+      ]
+    },
+    {
+      "DownstreamPathTemplate": "/api/passenger",
+      "UpstreamPathTemplate": "/api/getpassenger",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8002
+        }
+      ],
+      "Key": "passenger"
+    },
+    {
+      "DownstreamPathTemplate": "/api/passenger/{id}",
+      "UpstreamPathTemplate": "/api/getpassenger/{id}",
+      "UpstreamHttpMethod": [ "Get" ],
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 8002
+        }
+      ]
+    }
+  ],
+  "GlobalConfiguration": {
+    "BaseUrl": "https://localhost:5000"
+  },
+  "Aggregates": [
+    {
+      "RouteKeys": [
+        "book",
+        "passenger"
+      ],
+      "UpstreamPathTemplate": "/api/getbookpassengerinfo"
+    }
+  ]
+}
